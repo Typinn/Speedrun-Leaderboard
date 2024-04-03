@@ -1,9 +1,9 @@
 @font-face {
-    font-family: "trajan";
+    font-family: "custom";
     src: url("./Fonts/TrajanProBold.ttf");
 }
 
-ul {
+ol {
     list-style:number;
    
 }
@@ -23,7 +23,7 @@ li {
 }
 
 .names2 {
-    font-family: trajan;
+    font-family: custom;
     font-size: 5rem;
     background-image: linear-gradient(45deg,#ff7200,#5c00ff);
     background-clip: text;
@@ -31,4 +31,30 @@ li {
     color: transparent;
     filter: drop-shadow(0.2rem 0.2rem black);
     -webkit-filter: drop-shadow(0.2rem 0.2rem 0.2rem black);
+}
+
+.hide {
+    display: none;
+}
+
+.fade-in {
+    animation: fadeIn 1s;
+    -webkit-animation: fadeIn 1s;
+    animation-fill-mode: forwards;
+}
+
+.fade-out {
+    animation: fadeOut 1s;
+    -webkit-animation: fadeOut 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
 }
