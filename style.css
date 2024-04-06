@@ -5,7 +5,6 @@
 
 ol {
     list-style:number;
-   
 }
 
 li {
@@ -15,17 +14,9 @@ li {
 }
 
 .names {
-    padding: 1px;
-    position:relative;
-    mix-blend-mode:luminosity;
-    background:white;
-    color:gray;
-}
-
-.names2 {
     font-family: custom;
     font-size: 5rem;
-    background-image: linear-gradient(45deg,#ff7200,#5c00ff);
+    background-image: linear-gradient(45deg,#ffffff,#ffffff);
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;

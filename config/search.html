@@ -26,6 +26,46 @@
                 
             </ul>
         </div>
+
+        <div id="modalWindow" class="hidden">
+            <div id="mainWindow">
+                <div id="header">
+                    <img src="../imagePlaceholder.jpg">
+                    <div>
+                        <h1>Game name</h1>
+                        <h3>Category Name</h3>
+                    </div>
+                </div>
+                <form action="../leaderboard.html">
+                    <div class="modalElement">
+                        <p>Leaderboard size (0 for maximum)</p>
+                        <input name="count" type="number" value="0">
+                        <input name="game" type="text" required class="hidden" id="game">
+                        <input name="category" type="text" required class="hidden" id="category">
+                    </div>
+                    <div class="modalElement">
+                        <p>Animation</p>
+                        <input name="animated" id="modalCheckbox" type="checkbox" value="true" autocomplete="off">
+                    </div>
+                    <div id="animParam" class="hidden">
+                        <div class="modalElement">
+                            <p>Fixed Count</p>
+                            <input name="stayCount" type="number" value="3">
+                        </div>
+                        <div class="modalElement">
+                            <p>Animated Count</p>
+                            <input name="switchCount" type="number" value="7">
+                        </div>
+                        <div class="modalElement">
+                            <p>Speed</p>
+                            <input name="speed" type="number" value="1">
+                        </div>
+                    </div>
+                    <button type="button" onclick="hideModal()">Cancel</button>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
         
         <script src="config.js" async defer></script>
     </body>
