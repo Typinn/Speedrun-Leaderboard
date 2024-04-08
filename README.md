@@ -4,7 +4,7 @@ Hi, I originally made this project for myself to add a leaderboard to my stream 
 
 ### Features
 - Configuration window that allow to chose the game and category you wish to display
-- Display any number of name from 1 to the whole leaderboard
+- Display any number of name from 1 to 100
 - Names are displayed in the color set by the user on speedrun.com
 - Leaderboard can be animated to cycle through all the names on the leaderboard whilst limiting the number of names on screen
 
