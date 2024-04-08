@@ -103,11 +103,15 @@ a {
 .hidden {
   display: none;
 }
-#form {
+
+#search-bar {
   margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+  width: 80%;
 }
 
-#form input {
+#search-bar input {
   height: 60px;
   width: 600px;
   font-size: larger;
@@ -118,11 +122,12 @@ a {
   -moz-border-radius: 60px;
   -ms-border-radius: 60px;
   -o-border-radius: 60px;
+  margin-right: 3%;
 }
 
-#form button {
+#search-bar button {
   height: 60px;
-  max-width: 150px;
+  width: 100px;
   font-size: large;
   border: none;
   background-color: green;
@@ -150,16 +155,17 @@ a {
 }
 
 #modalWindow #mainWindow {
-  padding: 2rem;
+  padding: 3rem 2rem 3rem 3rem;
   background-color: rgb(34, 34, 34);
   border: solid 0.5rem white;
+  min-width: 30%;
   width: fit-content;
   margin: auto;
 }
 
 #header {
   display: flex;
-  justify-content:center;
+  justify-content:left;
   align-items: center;
   margin-bottom: 3rem;
 }
@@ -177,19 +183,82 @@ a {
   margin-right: 1rem;
 }
 
-
 #modalWindow form {
-  padding: 0 1rem;
-  width: 80%;
-  margin: auto;
+  width: 100%;
 }
-#modalWindow form input {
+
+#modalWindow form input,select {
   width: 2rem;
   height: 1rem;
+  margin-left: 2rem;
+  margin-right: 1rem;
 }
+
+#modalParam {
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+/* width */
+#modalParam::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+#modalParam::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+#modalParam::-webkit-scrollbar-thumb {
+  background: rgb(255, 255, 255);
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
 
 .modalElement {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.variable {
+  width: auto !important;
+}
+
+#callToAction {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2rem;
+}
+
+#callToAction button {
+  font-weight: bold;
+  width: 40%;
+  padding: 10px;
+  border-radius: 30px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
+  transition: 100ms;
+  -webkit-transition: 100ms;
+  -moz-transition: 100ms;
+  -ms-transition: 100ms;
+  -o-transition: 100ms;
+}
+
+#callToAction button:hover {
+  color: rgb(37, 37, 37);
+  background-color: rgb(201, 201, 201);
+  transition: 100ms;
+  -webkit-transition: 100ms;
+  -moz-transition: 100ms;
+  -ms-transition: 100ms;
+  -o-transition: 100ms;
 }

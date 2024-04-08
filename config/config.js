@@ -13,7 +13,7 @@ async function performSearch() {
     document.querySelector("#body p1").innerHTML = "Search result for : " + query;
     
     fetch(
-        "https://www.speedrun.com/api/v1/games?page=2&name=" + a
+        "https://www.speedrun.com/api/v1/games?name=" + a
     )
         .then((response) => {
             response.json()
@@ -44,7 +44,7 @@ function createVignette (game) {
     img.onmouseenter = function() { gameHover(game, div); }
 
     fetch(
-        "https://www.speedrun.com/api/v1/games/" + game.id + "/categories"
+        "https://www.speedrun.com/api/v1/games/" + game.id + "/categories?embed=variables"
     ).then(gameCate => {
         gameCate.json().then(data => {
             categories[game.id] = data;
@@ -63,10 +63,11 @@ function gameHover (game, div) {
         let li = document.createElement("li")
         let a = document.createElement("a");
         a.innerHTML = cate.name;
+        //Allow for the category to be clickable
         a.setAttribute("href","#");
-        a.setAttribute("onclick","selectedGameThumbnail=\""+ game.assets["cover-large"].uri + "\";selectedGame=\""+game.id+"\";selectedCategory=\""+index+"\";showModal();");
-        //selectedGame="+game.id+";selectedCategory="+cate.id+";"
-        //a.setAttribute("href","../leaderboard.html?game="+game.id+"&category="+cate.id+"&count=20");
+        //On click set the values to get the game and category needed
+        a.setAttribute("onclick","selectedGameThumbnail=\""+ game.assets["cover-large"].uri + "\";selectedGame=\""+game.id+"\";selectedCategory=\""+index+"\";showModal();return false;");
+
         li.appendChild(a);
         menu.appendChild(li);
         div.appendChild(menu);
@@ -81,15 +82,72 @@ function gameleave () {
 
 function showModal () {
     document.getElementById('modalWindow').classList.remove('hidden');
+
+    // Customize Header
     document.querySelector('#header h1').innerHTML = categories[selectedGame].name;
     document.querySelector('#header h3').innerHTML = categories[selectedGame].data[selectedCategory].name;
     document.querySelector('#header img').src = selectedGameThumbnail;
+
+    // Set the values of hidden input in the form
     document.getElementById("game").value = selectedGame;
     document.getElementById("category").value = categories[selectedGame].data[selectedCategory].id;
+
+    // Create new input for each game specific variables
+    let variables = categories[selectedGame].data[selectedCategory].variables.data;
+    variables.forEach(v => {
+        if (v["is-subcategory"] == false) return;
+        console.log(v);
+        createVariableSelector(v);
+    });
 }
 
 function hideModal () {
     document.getElementById('modalWindow').classList.add('hidden');
+    //Clear variable selector
+    document.querySelector("#variables").innerHTML = "";
+}
+
+function createVariableSelector (variable) {
+    /*
+    <div id="variables">
+        <div class="modalElement">
+            <p>Platform</p>
+            <select name="var-variableID" class="variable" required>
+                <option value="var1ID">Option 1</option>
+                <option value="var2ID">Option 2</option>
+            </select>
+        </div>
+    </div>
+    */
+
+    // Wrapper div for all variable selector
+    const div = document.querySelector("#variables");
+
+    // Wrapper div for one selector
+    const modalElement = document.createElement("div");
+    modalElement.classList.add("modalElement");
+    div.appendChild(modalElement);
+
+    // Variable Name
+    const p = document.createElement("p");
+    p.innerHTML = variable.name;
+    modalElement.appendChild(p);
+
+    // Select element
+    const select = document.createElement("select");
+    select.setAttribute("name","var-" + variable.id);
+    select.setAttribute("required","true");
+    select.classList.add("variable");
+    modalElement.appendChild(select);
+
+    // Add options to the select
+    for (const [key, value] of Object.entries(variable.values.values)) {
+        const option = document.createElement("option");
+        option.setAttribute("value",key);
+        option.innerHTML = value.label;
+        select.appendChild(option);
+    }
+
 }
 
 function submitLeaderboard () {

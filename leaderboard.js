@@ -1,8 +1,18 @@
 const urlParams = new URLSearchParams(window.location.search);
+
 const totalCount =
     urlParams.get("count") == 0 ? 999999 : urlParams.get("count") - 1;
+
+// Game id
+// https://github.com/speedruncomorg/api/blob/master/version1/games.md
 const game = urlParams.get("game");
+
+// Category id
+// https://github.com/speedruncomorg/api/blob/master/version1/categories.md
 const category = urlParams.get("category");
+
+
+
 let animated = urlParams.get("animated");
 if (animated == null) animated = false;
 else animated = true;
@@ -10,13 +20,24 @@ const stayCount = parseInt(urlParams.get("stayCount"));
 const switchCount = parseInt(urlParams.get("switchCount"));
 const time = 6000 / urlParams.get("speed");
 
+// Get additionnal variables that filter the leaderboard
+// https://github.com/speedruncomorg/api/blob/master/version1/variables.md
+let additionalVariables = "?";
+urlParams.forEach((value, key) => {
+    if (key.startsWith("var-")) {
+        if (additionalVariables.length > 1) additionalVariables += "&";
+        additionalVariables += key+"="+value;
+    }
+});
+
+
+// https://github.com/speedruncomorg/api/blob/master/version1/leaderboards.md
 async function getLeaderboard() {
-    //"https://www.speedrun.com/api/v1/leaderboards/nd28z0ed/category/w20e4yvd"
     return fetch(
         "https://www.speedrun.com/api/v1/leaderboards/" +
             game +
             "/category/" +
-            category
+            category + additionalVariables
     )
         .then((response) => response.json())
         .catch((e) => {
@@ -27,7 +48,8 @@ async function getLeaderboard() {
 //Recursive function that fetch and display every player in the leaderboard one after the other because the order is important
 async function getNextPlayer(runs, count, playerData) {
     if (count > totalCount || runs.length <= count) {
-        if (animated == true) startAnimation();
+        //Don't play the animation if there is not enough names
+        if (animated == true && count > stayCount+switchCount) startAnimation();
         return playerData;
     }
     await playerData.push(
